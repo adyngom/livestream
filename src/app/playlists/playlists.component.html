@@ -1,0 +1,50 @@
+<section class="container-fluid media-container" #containerRef>
+  <div class="video-box" id="video-box" #videoBoxRef>
+    <div class="box videoWrapper">
+      <iframe
+        id="video-player"
+        width="560"
+        height="315"
+        src=""
+        frameborder="0"
+        allowfullscreen
+        allow="autoplay"
+        #videoPlayerRef
+      >
+      </iframe>
+    </div>
+  </div>
+  <div class="videos-list" id="videos-list" #videosListRef>
+    <div class="playlist-details">
+      <div class="playlist-meta">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+
+    <ul class="chapters" id="chapters" #chaptersRef>
+      <ng-template ngFor let-list [ngForOf]="library.order" let-i="index">
+        <li class="chapter-item">
+          <h3 class="chapter-header open">
+            {{ library.playlists[list].title }}
+          </h3>
+          <ul class="episodes">
+            <li
+              class="episode"
+              [attr.data-episodeid]="episode.videoId"
+              [attr.data-type]="episode.type"
+              *ngFor="let episode of library.playlists[list].items"
+            >
+              <article class="episode">
+                <div class="episode-details">
+                  <h4>{{ episode.title }}</h4>
+                  <small>{{ episode.length }}</small>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</section>
+<slot name="stats"></slot>
